@@ -9,7 +9,7 @@ export const API = axios.create({
     responseType : "json",
 })
 
-// const res = axios.get()
+// const res = axios.get()  
 
 export const apiRequest = async ({url , token , data , method})=>{
     try {
