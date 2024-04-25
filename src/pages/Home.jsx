@@ -154,6 +154,93 @@ return (
               <div className='hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto'>
                 <ProfileCard user={user}/>
                 <FriendsCard friends={user?.friends}/>
+                <div className='flex lg:hidden w-full bg-primary  flex-col items-center shadow-sm rounded-xl px-6 mb-3 py-4'>
+                       <div className=' w-full  h-full flex flex-col gap-8 overflow-y-auto'>
+                          {/* FRIEND REQUESTS  */}
+                          <div className='w-full bg-primary  shadow-sm rounded-lg px-3 py-5'>
+                                <div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
+                                    <span>Friend Requests</span>
+                                    <span>{friendRequest.length}</span>
+                                </div>
+
+                                <div className='w-full flex flex-col gap-4 pt-4'>
+                                    {
+                                    friendRequest?.map(({_id , requestFrom:req})=>{
+                                      return  <div key={_id} className='flex items-center justify-between'>
+
+                                                  <Link to={"/profile/" +req._id} className='w-full flex gap-4 items-center cursor-pointer'>
+                                                      <img src={req?.profileUrl ? req?.profileUrl : profile} 
+                                                      alt={req?.firstName} 
+                                                      className='h-10 w-10 rounded-full object-cover'/>
+
+                                                      <div className='flex flex-col '>
+                                                      <p className='font-sm text-ascent-1'>  {req.firstName}  {req.lastName}</p>
+                                                      <span className='text-sm text-ascent-2'> {req?.profession ? req.profession :"No profession"}</span>
+                                                      </div>
+                                                  </Link> 
+
+                                                  <div className='flex gap-1' >
+                                                    <CustomButton
+                                                    title='Accept'
+                                                    onClick={()=> acceptFriendRequest(_id , "Accepted")}
+                                                    containerStyles='bg-[#0444a4] py-1 rounded-full text-xs text-white px-1.5'
+                                                    />
+                                                    <CustomButton
+                                                    title='Deny'
+                                                    onClick={()=> acceptFriendRequest(_id , "Denied")}
+                                                    containerStyles='border border-[#666] py-1 rounded-full text-xs text-ascent-1 px-1.5'
+                                                    />
+                                                  </div>  
+
+                                            </div>
+                                    })
+                                    }
+                                </div>
+                          </div>
+
+                          {/* SUGGESTED  FRIENDS*/}
+                          <div className='w-full bg-primary  shadow-sm rounded-lg px-3 py-5'>
+                                <div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
+                                  <span>Friend Suggestion</span>
+                                </div>
+
+                                <div className='w-full flex flex-col gap-4 pt-4'>
+                                {
+                                    suggestedFriend?.map((sug)=>{
+                                      return  <div key={sug._id} className='flex items-center justify-between'>
+
+                                                  <Link to={"/profile/" +sug._id} className='w-full flex gap-4 items-center cursor-pointer'>
+                                                      <img src={sug?.profileUrl ? sug?.profileUrl : profile} 
+                                                      alt={sug?.firstName} 
+                                                      className='h-10 w-10 rounded-full object-cover'/>
+
+                                                      <div className='flex flex-col '>
+                                                      <p className='font-sm text-ascent-1'>  {sug.firstName}  {sug.lastName}</p>
+                                                      <span className='text-sm text-ascent-2'> {sug?.profession ? sug.profession :"No profession"}</span>
+                                                      </div>
+                                                  </Link> 
+
+                                                  <div className='flex gap-1' >
+                                                      <button
+                                                      className='bg-[#0444a430] text-sm text-white p-1 rounded'
+                                                      onClick={()=>handeleFriendRequest(sug?._id)}
+                                                      >   
+                                                          <BsPersonFillAdd size={20} className='text-[#0f52b6]'></BsPersonFillAdd>
+                                                          { tick === sug?._id  &&
+                                                          ( <>send</>)
+                                                          }
+                                                      </button>
+                                                    
+                                                  </div>  
+
+                                            </div>
+                                        })
+                                    } 
+                                </div>
+                          </div>
+
+                       </div>
+                </div>
               </div>
 
             {/* CENTER  */}

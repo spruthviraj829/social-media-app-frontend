@@ -40,7 +40,7 @@ export const handleFileUpload = async (uploadFile)=>{
       console.log("insdie handle filepload");
       try{
         const response = await axios.post(
-            `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_ID}/image/upload/`,
+            `https://api.cloudinary.com/v1_1/dqhkucvmm/image/upload/`,
             formData
         );
         console.log(response)
