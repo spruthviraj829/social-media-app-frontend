@@ -16,7 +16,7 @@ import PostCard from '../components/PostCard'
 import EditProfile from '../components/EditProfile'
 import { apiRequest, deletePost, fetchPosts, getUserInfo, handleFileUpload, likePost, sendFriendRequset } from '../utils'
 import { UserLogin } from '../redux/userSlice'
-
+import { FaHourglassEnd } from "react-icons/fa";  
 
 const Home = () => {
   
@@ -32,7 +32,8 @@ const Home = () => {
   const [errMsg ,setErrMsg] = useState("");
   const [file ,setFile] = useState(null);
   const [posting , setPosting] = useState(false);
-  const [loading ,setLoading] = useState(false)
+  const [loading ,setLoading] = useState(false);
+  const [requested ,setRequested] = useState(null);
   
 const handlePostSubmit = async(data)=>{
        setPosting(true);
@@ -386,7 +387,6 @@ return (
                     <div className='flex items-center justify-between text-xl text-ascent-1 pb-2 border-b border-[#66666645]'>
                        <span>Friend Suggestion</span>
                     </div>
-
                     <div className='w-full flex flex-col gap-4 pt-4'>
                     {
                          suggestedFriend?.map((sug)=>{
@@ -406,12 +406,14 @@ return (
                                       <div className='flex gap-1' >
                                           <button
                                           className='bg-[#0444a430] text-sm text-white p-1 rounded'
-                                          onClick={()=>handeleFriendRequest(sug?._id)}
-                                          >   
-                                               <BsPersonFillAdd size={20} className='text-[#0f52b6]'></BsPersonFillAdd>
-                                               { tick === sug?._id  &&
-                                               ( <>send</>)
-                                               }
+                                          onClick={()=>{handeleFriendRequest(sug?._id)
+                                            setRequested(sug?._id) 
+                                          }}
+                                          >                                   
+                                            { requested === sug?._id  ? <FaHourglassEnd /> : 
+                                             <BsPersonFillAdd size={20} className='text-[#0f52b6]'></BsPersonFillAdd>
+                                              
+                                             }
                                           </button>
                                         
                                       </div>  

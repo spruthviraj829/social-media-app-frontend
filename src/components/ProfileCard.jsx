@@ -15,6 +15,8 @@ const ProfileCard = ({user}) => {
     const {user:data , edit} = useSelector((state)=>state.user)
     const dispatch =useDispatch()
     // console.log(user.user.email)
+    console.log("user:",user)
+    console.log("data:" ,data.friends._id)
   //  const {navigate} = useNavigate()
     //  const navigate = useNavigate();
   return (
@@ -39,13 +41,13 @@ const ProfileCard = ({user}) => {
                     
                  }}     
                  />
-                :
-                <button 
-                onClick={()=>{}}
-                className='bg-[#0444a430] text-sm text-white p-1 rounded'
-                >
-                  <BsPersonFillAdd size={20} className='text-[#0f52b6]'/>
-                </button>
+                : data.friends.includes(user?._id) ? " ":" "
+                // <button 
+                // onClick={()=>{}}
+                // className='bg-[#0444a430] text-sm text-white p-1 rounded'
+                // >
+                //   <BsPersonFillAdd size={20} className='text-[#0f52b6]'/>
+                // </button>
                 }
             </div>
         </div>
