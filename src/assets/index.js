@@ -1,4 +1,6 @@
 
 import profile from "./userprofile.png"
 import BgImage from "./img.jpeg";
-export { profile, BgImage };
+import logo from "./sharify_png.png"
+
+export { profile, BgImage ,logo };

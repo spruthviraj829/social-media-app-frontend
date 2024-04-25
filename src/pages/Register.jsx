@@ -11,19 +11,15 @@ import { AiOutlineInteraction } from 'react-icons/ai'
 import { ImConnection } from 'react-icons/im'
 import { BsShare } from 'react-icons/bs'
 import { apiRequest } from '../utils'
-
+import {logo} from "../assets"
+import image from "../assets/image.jpg"
+import slogo from "../assets/sharify_logo.png"
 
 const Register = () => {
 const { register, getValues,handleSubmit, formState: { errors }, } = useForm({ mode: "onChange",});
 const [errMsg  ,setErrMsg] = useState("");
 const [isSubmiting , setIsSubmiting] = useState(false);
 const dispatch = useDispatch();
-
-// const {firstName , email,tryit , password } = getValues();
-// console.log("name:" ,firstName);
-// console.log("email:" ,email);
-// console.log("password" ,password);
-
 
 const onSubmit = async( data)=>{
   console.log("inside on submit")
@@ -59,10 +55,11 @@ const onSubmit = async( data)=>{
           justify-center '>
 
               <div className='w-full flex gap-2 items-center mb-6'>
-                    <div  className='p-2 bg-[#065ad8] rounded text-white'>
-                    <TbSocial />
+                    <div  className=' rounded text-white'>
+                    <img src={slogo} alt="" height={60} width={60} className='rounded-md' />
+                    {/* <TbSocial /> */}
                     </div> 
-                  <span className='text-2xl text-[#065ad8] font-semibold'>ShareFun</span>
+                  <span className='text-2xl text-[#065ad8] font-semibold'>Sharify</span>
               </div>
 
               <p className='text-ascent-1 text-base font-semibold'>Create your account</p>
@@ -173,7 +170,7 @@ const onSubmit = async( data)=>{
           <div className='hidden  w-1/2 h-full lg:flex flex-col  items-center bg-blue justify-center '>
               <div className='relative w-full flex items-center justify-center'>
                       <img
-                       src={BgImg} 
+                       src={image} 
                        alt="bg Image"
                        className='w-48  2xl:w-64 h-48 2xl:h-64 rounded-full object-cover'
                        />

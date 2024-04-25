@@ -12,6 +12,10 @@ import { ImConnection } from 'react-icons/im'
 import { BsShare } from 'react-icons/bs'
 import { UserLogin } from '../redux/userSlice'
 import { apiRequest } from '../utils'
+import {logo} from "../assets"
+import image from "../assets/image.jpg"
+import slogo from "../assets/sharify_logo.png"
+
 const Login = () => {
   const { register,handleSubmit, formState: { errors }, } = useForm({ mode: "onChange",});
 
@@ -54,10 +58,11 @@ const onSubmit = async( data)=>{
           justify-center '>
 
               <div className='w-full flex gap-2 items-center mb-6'>
-                    <div  className='p-2 bg-[#065ad8] rounded text-white'>
-                    <TbSocial />
+                    <div  className='  rounded text-white'>
+                      <img src={slogo} alt="" height={60} width={60} className='rounded-md' />
+                    {/* <TbSocial /> */}
                     </div> 
-                  <span className='text-2xl text-[#065ad8] font-semibold'>ShareFun</span>
+                  <span className='text-2xl text-[#065ad8] font-semibold'>Sharify</span>
               </div>
 
               <p className='text-ascent-1 text-base font-semibold'>Log in to your account</p>
@@ -126,9 +131,9 @@ const onSubmit = async( data)=>{
           <div className='hidden  w-1/2 h-full lg:flex flex-col  items-center bg-blue justify-center '>
               <div className='relative w-full flex items-center justify-center'>
                       <img
-                       src={BgImg} 
+                       src={image} 
                        alt="bg Image"
-                       className='w-48  2xl:w-64 h-48 2xl:h-64 rounded-full object-cover'
+                       className='w-64  2xl:w-64 h-64 2xl:h-64 rounded-full object-cover'
                        />
 
                     <div className='absolute flex items-center gap-1 bg-white right-10 top-10 py-2 px-5 rounded-full'>

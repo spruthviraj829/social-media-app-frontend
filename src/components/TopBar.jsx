@@ -10,6 +10,8 @@ import { setTheme } from '../redux/theme'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import { Logout } from '../redux/userSlice'
 import { fetchPosts } from '../utils'
+import {logo} from "../assets"
+import slogo from "../assets/sharify_logo.png"
 
 const TopBar = () => {
     const {theme} =useSelector((state)=> state.theme)
@@ -31,11 +33,12 @@ const TopBar = () => {
   return (
     <div className='topbar w-full flex items-center justify-between max-h-20 rounded-lg py-3 md:py-6 px-4 bg-primary'>
         <Link to='/' className='flex gap-2 items-center'>
-        <div className='p-1 md:p-2 bg-[#065ad8] rounded text-white'>
-          <TbSocial />
+        <div className='p-1 md:p-2  rounded text-white'>
+        <img src={slogo} alt="" height={50} width={50} className='rounded-md' />
+          {/* <TbSocial /> */}
         </div>
         <span className='text-xl md:text-2xl text-[#065ad8] font-semibold'>
-          Memories
+          Sharify
         </span>
       </Link>
 
