@@ -17,15 +17,21 @@ import EditProfile from '../components/EditProfile'
 import { apiRequest, deletePost, fetchPosts, getUserInfo, handleFileUpload, likePost, sendFriendRequset } from '../utils'
 import { UserLogin } from '../redux/userSlice'
 import { FaHourglassEnd } from "react-icons/fa";  
+import { Follow } from '../redux/followedSlice'
+import { Accepted, Rejected } from '../redux/acceptRejectSlice'
+import { MdDoneOutline } from "react-icons/md";
+import { ImCross } from "react-icons/im";
 
 const Home = () => {
   
-  const [tick , setTick] =useState(null)
+  const [tick , setTick] =useState(null) 
 
   const {user ,edit} = useSelector((state)=>state.user)
   const dispatch = useDispatch(); 
   const {posts}= useSelector((state)=>state.post)
-      
+  const {follow}  =useSelector((state)=>state.follow) ;
+  const {accetp , reject} =useSelector((state)=>state.acceptReject)
+
   const [friendRequest , setFriendRequest] = useState([])
   const [suggestedFriend , setSuggestedFriend] = useState([])
   const {register , handleSubmit ,reset , formState :{errors}} = useForm();
@@ -180,17 +186,23 @@ return (
                                                       </div>
                                                   </Link> 
 
-                                                  <div className='flex gap-1' >
-                                                    <CustomButton
-                                                    title='Accept'
-                                                    onClick={()=> acceptFriendRequest(_id , "Accepted")}
-                                                    containerStyles='bg-[#0444a4] py-1 rounded-full text-xs text-white px-1.5'
-                                                    />
-                                                    <CustomButton
-                                                    title='Deny'
-                                                    onClick={()=> acceptFriendRequest(_id , "Denied")}
-                                                    containerStyles='border border-[#666] py-1 rounded-full text-xs text-ascent-1 px-1.5'
-                                                    />
+                                                  <div className='flex gap-1 items-center' >
+                                                  { accetp?.includes(_id) ? <MdDoneOutline color='white'/> : <CustomButton
+                                                      title='Accept'
+                                                      onClick={()=> {acceptFriendRequest(_id , "Accepted")
+                                                          dispatch(Accepted(_id))
+                                                        }}
+                                                      containerStyles='bg-[#0444a4] py-1 rounded-full text-xs text-white px-1.5'
+                                                      />
+                                                      }
+                                                      { reject?.includes(_id) ? <ImCross color='white' /> : <CustomButton
+                                                      title='Deny'
+                                                      onClick={()=>{ acceptFriendRequest(_id , "Denied")
+                                                      dispatch(Rejected(_id))
+                                                      }}
+                                                      containerStyles='border border-[#666] py-1 rounded-full text-xs text-ascent-1 px-1.5'
+                                                      />
+                                                      }
                                                   </div>  
 
                                             </div>
@@ -223,13 +235,14 @@ return (
 
                                                   <div className='flex gap-1' >
                                                       <button
-                                                      className='bg-[#0444a430] text-sm text-white p-1 rounded'
-                                                      onClick={()=>handeleFriendRequest(sug?._id)}
-                                                      >   
-                                                          <BsPersonFillAdd size={20} className='text-[#0f52b6]'></BsPersonFillAdd>
-                                                          { tick === sug?._id  &&
-                                                          ( <>send</>)
-                                                          }
+                                                          className='bg-[#0444a430] text-sm text-white p-1 rounded'
+                                                          onClick={()=>{handeleFriendRequest(sug?._id)
+                                                            dispatch(Follow(sug?._id))
+                                                          }}
+                                                          >   
+                                                            { follow.includes(sug?._id) ? <FaHourglassEnd /> : 
+                                                              <BsPersonFillAdd size={20} className='text-[#0f52b6]'></BsPersonFillAdd>
+                                                            }                                             
                                                       </button>
                                                     
                                                   </div>  
@@ -363,17 +376,23 @@ return (
                                           </div>
                                       </Link> 
 
-                                      <div className='flex gap-1' >
-                                        <CustomButton
+                                      <div className='flex gap-1 items-center' >
+                                       { accetp?.includes(_id) ? <MdDoneOutline color='white'/> : <CustomButton
                                          title='Accept'
-                                         onClick={()=> acceptFriendRequest(_id , "Accepted")}
+                                         onClick={()=> {acceptFriendRequest(_id , "Accepted")
+                                             dispatch(Accepted(_id))
+                                           }}
                                          containerStyles='bg-[#0444a4] py-1 rounded-full text-xs text-white px-1.5'
                                         />
-                                         <CustomButton
+                                        }
+                                        { reject?.includes(_id) ? <ImCross color='white' /> : <CustomButton
                                          title='Deny'
-                                         onClick={()=> acceptFriendRequest(_id , "Denied")}
+                                         onClick={()=>{ acceptFriendRequest(_id , "Denied")
+                                         dispatch(Rejected(_id))
+                                        }}
                                          containerStyles='border border-[#666] py-1 rounded-full text-xs text-ascent-1 px-1.5'
                                         />
+                                        }
                                       </div>  
 
                                  </div>
@@ -407,10 +426,10 @@ return (
                                           <button
                                           className='bg-[#0444a430] text-sm text-white p-1 rounded'
                                           onClick={()=>{handeleFriendRequest(sug?._id)
-                                            setRequested(sug?._id) 
+                                               dispatch(Follow(sug?._id))
                                           }}
                                           >                                   
-                                            { requested === sug?._id  ? <FaHourglassEnd /> : 
+                                            { follow.includes(sug?._id) ? <FaHourglassEnd /> : 
                                              <BsPersonFillAdd size={20} className='text-[#0f52b6]'></BsPersonFillAdd>
                                               
                                              }
